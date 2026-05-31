@@ -26,26 +26,26 @@ public class UserRepository implements UserOutPort {
 
     @Override
     public Optional<UserModel> findById(UUID id) {
-        return Optional.empty();
+        return this.userRepositoryAdapter.findById(id).map(userMappers::toModel);
     }
 
     @Override
     public Optional<UserModel> findByEmail(String email) {
-        return Optional.empty();
+        return this.userRepositoryAdapter.findByEmail(email).map(userMappers::toModel);
     }
 
     @Override
     public List<UserModel> findAll() {
-        return List.of();
+        return this.userRepositoryAdapter.findAll().stream().map(userMappers::toModel).toList();
     }
 
     @Override
     public void deleteById(UUID id) {
-
+        this.userRepositoryAdapter.deleteById(id);
     }
 
     @Override
     public boolean existsByEmail(String email) {
-        return false;
+        return this.userRepositoryAdapter.existsByEmail(email);
     }
 }

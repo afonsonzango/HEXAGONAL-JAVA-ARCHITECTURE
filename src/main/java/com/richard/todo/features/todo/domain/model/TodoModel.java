@@ -1,7 +1,7 @@
 package com.richard.todo.features.todo.domain.model;
 
 import com.richard.todo.features.todo.domain.enums.TodoPriorityEnum;
-import com.richard.todo.features.user.infrastructure.entity.UserEntity;
+import com.richard.todo.features.user.domain.model.UserModel;
 
 import java.time.Instant;
 import java.util.UUID;
@@ -11,14 +11,14 @@ public class TodoModel {
     private String name;
     private String description;
     private TodoPriorityEnum priority = TodoPriorityEnum.PENDING;
-    private UserEntity user;
+    private UserModel user;
     private Instant createdAt;
     private Instant updatedAt;
 
     public TodoModel() {
     }
 
-    public TodoModel(UUID id, String name, String description, TodoPriorityEnum priority, UserEntity user, Instant createdAt, Instant updatedAt) {
+    public TodoModel(UUID id, String name, String description, TodoPriorityEnum priority, UserModel user, Instant createdAt, Instant updatedAt) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -60,11 +60,11 @@ public class TodoModel {
         this.priority = priority;
     }
 
-    public UserEntity getUser() {
+    public UserModel getUser() {
         return user;
     }
 
-    public void setUser(UserEntity user) {
+    public void setUser(UserModel user) {
         this.user = user;
     }
 

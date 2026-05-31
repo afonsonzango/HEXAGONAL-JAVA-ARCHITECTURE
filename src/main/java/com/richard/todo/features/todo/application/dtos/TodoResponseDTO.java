@@ -1,56 +1,26 @@
-package com.richard.todo.features.todo.infrastructure.entity;
+package com.richard.todo.features.todo.application.dtos;
 
 import com.richard.todo.features.todo.domain.enums.TodoPriorityEnum;
-import com.richard.todo.features.user.infrastructure.entity.UserEntity;
-import jakarta.persistence.*;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.Instant;
 import java.util.UUID;
 
-@Entity
-@Table(name = "todos")
-@EntityListeners(AuditingEntityListener.class)
-public class TodoEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+public class TodoResponseDTO {
     private UUID id;
-
-    @Column(nullable = false, length = 100)
     private String name;
-
-    @Column(nullable = true, length = 500)
     private String description;
-
-    @Enumerated(EnumType.STRING)
-    @Column(length = 20)
     private TodoPriorityEnum priority = TodoPriorityEnum.PENDING;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    private UserEntity user;
-
-    @CreationTimestamp
-    @Column(name = "created_at", nullable = false, updatable = false)
     private Instant createdAt;
-
-    @UpdateTimestamp
-    @Column(name = "updated_at", nullable = false)
     private Instant updatedAt;
 
-    public TodoEntity() {
+    public TodoResponseDTO() {
     }
 
-    public TodoEntity(UUID id, String name, String description, TodoPriorityEnum priority, UserEntity user, Instant createdAt, Instant updatedAt) {
+    public TodoResponseDTO(UUID id, String name, String description, TodoPriorityEnum priority, Instant createdAt, Instant updatedAt) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.priority = priority;
-        this.user = user;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
@@ -85,14 +55,6 @@ public class TodoEntity {
 
     public void setPriority(TodoPriorityEnum priority) {
         this.priority = priority;
-    }
-
-    public UserEntity getUser() {
-        return user;
-    }
-
-    public void setUser(UserEntity user) {
-        this.user = user;
     }
 
     public Instant getCreatedAt() {
